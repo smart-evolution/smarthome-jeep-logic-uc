@@ -1,12 +1,19 @@
 #include <SoftwareSerial.h>
 
 SoftwareSerial softSerial(5, 6);
+const int trigger = 3;
+const int echo = 4;
 const int moto1Enable = 9;
 const int moto1in1 = 19;
 const int moto1in2 = 17;
 const int moto2Enable = 10;
 const int moto2in1 = 16;
 const int moto2in2 = 18;
+
+float sDist = 0;
+long sTime = 0;
+float sMax = 0;
+float sMin = 0;
 
 String readString;
 
@@ -55,8 +62,18 @@ void handleIncomingMsg(int incomingBytes) {
     setMotor(255, true, 1);
   }
   // others
+  else if (strcmp(cmd, "CMDLOK") == 0) {
+      digitalWrite(trigger, HIGH);
+      delayMicroseconds(10);
+      digitalWrite(trigger, LOW);
+      sTime = pulseIn(echo, HIGH);
+      sDist = (sTime / 58.0);
+      sMax = sDist + (0.3 + 0.01 * sDist);
+      sMin = sDist - (0.3 + 0.01 * sDist);
+      softSerial.print("<" + String(sMin) + "|" + String(sMax) + ">");
+  }  
   else if (strcmp(cmd, "CMDWHO") == 0) {
-    softSerial.write("jeep");
+    softSerial.print("jeep");
   }
 }
 
