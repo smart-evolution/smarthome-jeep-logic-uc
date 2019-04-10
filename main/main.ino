@@ -69,10 +69,10 @@ void handleIncomingMsg(int incomingBytes) {
       sDist = (sTime / 58.0);
       sMax = sDist + (0.3 + 0.01 * sDist);
       sMin = sDist - (0.3 + 0.01 * sDist);
-      softSerial.print("<" + String(sMin) + "|" + String(sMax) + ">");
+      softSerial.print("[1:<" + String(sMin) + "|" + String(sMax) + ">]");
   }  
   else if (strcmp(cmd, "CMDWHO") == 0) {
-    softSerial.print("jeep");
+    softSerial.print("[1:jeep]");
   }
 }
 
