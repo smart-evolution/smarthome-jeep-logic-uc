@@ -74,6 +74,9 @@ void handleIncomingMsg(int incomingBytes) {
   else if (strcmp(cmd, "CMDWHO") == 0) {
     softSerial.print("[1:jeep]");
   }
+  else if (strcmp(cmd, "CMDDIS") == 0) {
+    softSerial.print("[0:disconnect]");
+  }
 }
 
 void stopMotors() {
