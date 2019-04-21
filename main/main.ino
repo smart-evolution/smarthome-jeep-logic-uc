@@ -1,4 +1,5 @@
 #include <SoftwareSerial.h>
+#include "version.h"
 
 SoftwareSerial softSerial(5, 6);
 const int trigger = 3;
@@ -72,7 +73,7 @@ void handleIncomingMsg(int incomingBytes) {
       softSerial.print("[1:<" + String(sMin) + "|" + String(sMax) + ">]");
   }  
   else if (strcmp(cmd, "CMDWHO") == 0) {
-    softSerial.print("[1:jeep]");
+    softSerial.print("[1:jeep-" + String(VERSION) + "]");
   }
   else if (strcmp(cmd, "CMDDIS") == 0) {
     softSerial.print("[0:disconnect]");
